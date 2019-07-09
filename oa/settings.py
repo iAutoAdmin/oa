@@ -59,9 +59,9 @@ MIDDLEWARE = [
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = (
-    '*'
-)
+#CORS_ORIGIN_WHITELIST = (
+#    '*'
+#)
 
 CORS_ALLOW_METHODS = (
     'DELETE',
@@ -118,8 +118,12 @@ DATABASES = {
         'NAME': 'oa',
         'USER': 'root',
         'PASSWORD': '123456',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
+        'OPTIONS': {
+            'init_command': 'SET default_storage_engine=INNODB;',
+            'charset':'utf8',
+        },
     }
 }
 

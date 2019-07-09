@@ -19,7 +19,7 @@ class Process(models.Model):
         (2, '流程拒绝')
     )
     title            = models.CharField('申请标题', max_length=64, null=False, help_text='申请标题')
-    approver         = models.ForeignKey(User, null=True, verbose_name="流程申请人", help_text="流程申请人")
+    approver         = models.ForeignKey(User, null=True, verbose_name="流程申请人", help_text="流程申请人",on_delete=models.CASCADE)
     # 记录当前审批级别，该字段提供"进度查询"
     cur_priority     = models.IntegerField('当前审批级别', null=True, blank=True, help_text='当前审批级别（默认：1）',default=1)
     status           = models.IntegerField(choices=status_choices, verbose_name="流程状态", help_text='流程状态', default=0)
@@ -43,8 +43,8 @@ class ApprovalProcess(models.Model):
         (1, '审批通过'),
         (2, '退回申请')
     )
-    applicant        = models.ForeignKey(User, null=True, verbose_name='审批人', help_text='审批人')
-    process          = models.ForeignKey(Process, verbose_name='所属流程', help_text='所属流程')
+    applicant        = models.ForeignKey(User, null=True, verbose_name='审批人', help_text='审批人',on_delete=models.CASCADE)
+    process          = models.ForeignKey(Process, verbose_name='所属流程', help_text='所属流程',on_delete=models.CASCADE)
     priority         = models.IntegerField('审批优先级', null=True, blank=True, help_text='审批优先级', default=1)
     # 展示字段（布尔值）, 审批单对用户是否展示, 优先级到当前用户，才展示该审批单
     show             = models.BooleanField("审批单展示", default=False, help_text='优先级到当前用户，才展示该审批单')
